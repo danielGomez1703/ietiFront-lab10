@@ -1,12 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## TASK MANAGER IETI PARTE 1 & 2
+## TASK MANAGER  PWA
 
 Esta aplicaion se desarrollo en reactjs, la cual tiene como proposito agregar tareas conociendo su creador y la informacion general
 
-despliegue en heroku  [en este enlace a heroku ](https://taskapp-eiti.herokuapp.com/)
+SE DESPLEGO EN FIREBASE
 
-despleigue en Azure   [en este enlace a Azure ](https://taskmanager-ieti.azurewebsites.net/)
+
+despleigue en FIREBASE  [en este enlace a Azure ](https://task-planner-app-8d216.firebaseapp.com//)
 
 	credenciales:
 	user : prueba@mail.com
