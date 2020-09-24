@@ -7,11 +7,17 @@ Esta aplicaion se desarrollo en reactjs, la cual tiene como proposito agregar ta
 SE DESPLEGO EN FIREBASE
 
 
-despleigue en FIREBASE  [en este enlace a Azure ](https://task-planner-app-8d216.firebaseapp.com//)
+despleigue en FIREBASE  [en este enlace a FIREBASE ](https://task-planner-app-8d216.firebaseapp.com/)
 
 	credenciales:
 	user : prueba@mail.com
 	clave : prueba1234
+
+
+# Nuevo Script
+	`npm run buildeploy`
+
+	Este comando contruira el proyeco y possteriomente hara el despliegue en firebase
 
 ## Available Scripts
 
