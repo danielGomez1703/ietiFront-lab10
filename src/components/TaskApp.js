@@ -5,7 +5,7 @@ import HomeViews from "./HomeViews";
 import 'react-datepicker/dist/react-datepicker.css';
 import AddTask from "./AddTask"
 import { BrowserRouter as Router, Link, Route, Redirect, Switch } from 'react-router-dom'
-
+import axios from "axios";
 
 class TaskApp extends Component {
 
@@ -18,6 +18,7 @@ class TaskApp extends Component {
         };
         this.handleClick = this.handleClick.bind(this);
     }
+
 
     render() {
         const homeView = () => (
@@ -50,7 +51,6 @@ class TaskApp extends Component {
             console.log("entra al if" + e);
             this.setState({
                 adding: false,
-                items: this.state.items.concat(e)
             })
         }
         else {

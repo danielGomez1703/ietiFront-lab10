@@ -10,7 +10,7 @@ export class TaskList extends React.Component {
     render() {
         const taskList = this.props.taskList.map((task, i) => {
             return ( 
-                    <Task key={i} index={i} descripcion={task.descripcion} status={task.status} dueDate={task.dueDate} responsible={task.responsible} />
+                <Task key={i} index={i} fileUrl={task.fileUrl} descripcion={task.description} status={task.status} dueDate={task.dueDate} responsible={task.responsible} />
             );
         });
         return (

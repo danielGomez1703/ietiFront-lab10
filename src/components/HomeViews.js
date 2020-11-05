@@ -4,7 +4,7 @@ import TaskList from "./TaskList"
 import { Container } from '@material-ui/core'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-
+import axios from "axios";
 export class HomeViews extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +13,38 @@ export class HomeViews extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
     }
+
+    async componentDidMount() {
+        var list = []
+        await axios.get('http://localhost:8080/api/todo', {
+            username: this.state.mail,
+            password: this.state.password
+        })
+            .then(function (response) {
+                const data = response.data;
+                console.log(response);
+                list = [];
+                data.forEach(function (task) {
+                    list.push({
+                        "status": task.status,
+                        "description": task.description,
+                        "fileUrl": task.fileUrl,
+                        "responsible": {
+                            "name": task.responsible.name,
+                            "email": task.responsible.email
+                        },
+                        "dueDate": task.dueDate
+                    })
+
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        this.setState({ items: list });
+
+    }
+
     render() {
         console.log("tasklist" + this.state.items)
         return (

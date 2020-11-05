@@ -10,6 +10,7 @@ export class Task extends React.Component {
         super(props);
     }
 
+   
     render() {
         var cardStyle = {
             justifyContent: 'center',
@@ -20,20 +21,22 @@ export class Task extends React.Component {
             height: '30vw'
         }
         return (
+            
             <div>
+                {console.log(this.props.responsible)}
                 <center>
                     <Card style={cardStyle}>
                         <BrandCardHeader
                             image={
-                                'https://pngimage.net/wp-content/uploads/2018/06/react-icon-png-7.png'
+                                this.props.fileUrl
                             }
                             extra={"USER : " + this.props.responsible.name}
                         />
                         <CardContent>
                             <TextInfoContent
-                                overline={'mail : ' + this.props.responsible.mail}
+                                overline={'email : ' + this.props.responsible.email}
                                 heading={'status: ' + this.props.status}
-                                body={this.props.dueDate.format('DD-MM-YYYY')}                        
+                                body={this.props.dueDate}                        
                             />
                             <Typography variant="body2" color="textSecondary" component="p">
                                 {this.props.descripcion}

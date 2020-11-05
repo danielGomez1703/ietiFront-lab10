@@ -20,7 +20,7 @@ import { Container } from '@material-ui/core'
 import MiniDrawer from "./MiniDrawer";  
 import Grid from '@material-ui/core/Grid';
 import TaskApp from "./TaskApp";
-
+import axios from "axios"
 
 class AddTask extends React.Component {
 
@@ -30,18 +30,21 @@ class AddTask extends React.Component {
         
         this.state = {
             items: [],
-            descriprion: '',
+            descripcion: '',
             status: "",
+            file: null,
+            fileUrl:"",
             dueDate: moment(),
             responsible: {
                 name: "Daniel Gomez",
-                mail: "daniel.gomez-su@mail.com"
+                email: "daniel.gomez-su@mail.com"
             }
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
       
     }
 
@@ -121,6 +124,18 @@ class AddTask extends React.Component {
                                         onChange={this.handleDateChange} />
                                 </MuiPickersUtilsProvider>
                             </center>
+                            </label>
+                        <label>
+                                Imagen de la Tarea : 
+                                <br/>
+
+                            <input type="file" 
+                                id="file"
+                                name="file"
+                                    onChange={this.handleInputChange}>
+                            </input>
+                            <br />
+                            <br />
                         </label>
 
                     </Grid>
@@ -147,15 +162,18 @@ class AddTask extends React.Component {
         });
     }
 
-  
+    handleInputChange(e) {
+        this.setState({
+            file: e.target.files[0]
+        });
+    }
 
     handleChange(e) {
         var property = e.target.id
-
         this.setState({ [property]: e.target.value });
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         console.log();
 
         e.preventDefault();
@@ -164,27 +182,65 @@ class AddTask extends React.Component {
             return;
         console.log(this.state.dueDate.toDateString());
 
+       
+
+        let data = new FormData();
+        let stringFile = ""
+        data.append('file', this.state.file);
+
+        await axios.post('http://localhost:8080/api/files', data)
+            .then(function (response) {
+                console.log("file uploaded!", response);
+                stringFile = response.data
+            })
+            .catch(function (error) {
+                console.log("failed file upload", error);
+            });
+        this.setState({
+            fileUrl: stringFile
+        })
+
+       
+
         const newItem = {
-            descripcion: this.state.descripcion,
+            description: this.state.descripcion,
+            fileUrl: this.state.fileUrl,
             status: this.state.status,
             dueDate: moment(this.state.dueDate.toDateString()),
             responsible: this.state.responsible
         };
+
+     await axios.post('http://localhost:8080/api/todo', {
+        status: newItem.status,
+        fileUrl: "http://localhost:8080/" + newItem.fileUrl,
+        description: newItem.description,
+        responsible: newItem.responsible,
+        dueDate: newItem.dueDate
+         })
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
         console.log(newItem);
+
         this.setState(prevState => ({
             items: prevState.items.concat(newItem),
             descripcion: '',
             status: '',
+            fileUrl: "",
+            file:null,
             dueDate: moment()
         }));
-       
-        
-       
+
+
+
     }
 
     handleFinish() {
         localStorage.setItem("isAdding", false);
-        this.props.handleClick(this.state.items);
+        this.props.handleClick();
         //window.location.href = "/";
 	}
 }
