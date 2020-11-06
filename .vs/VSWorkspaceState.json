@@ -3,7 +3,8 @@
     "",
     "\\images",
     "\\public",
-    "\\src"
+    "\\src",
+    "\\src\\components"
   ],
   "SelectedNode": "\\README.md",
   "PreviewInSolutionExplorer": false

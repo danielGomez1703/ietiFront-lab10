@@ -18,8 +18,9 @@ export class Task extends React.Component {
             display: 'block',
             width: '60vw',
             transitionDuration: '0.3s',
-            height: '30vw'
+            height: 'auto'
         }
+        let imagen = this.props.fileUrl.slice(-3) == "pdf" ? "https://www.universidadesenbogota.com/wp-content/uploads/logo-eci.jpg" : this.props.fileUrl
         return (
             
             <div>
@@ -28,7 +29,7 @@ export class Task extends React.Component {
                     <Card style={cardStyle}>
                         <BrandCardHeader
                             image={
-                                this.props.fileUrl
+                                imagen
                             }
                             extra={"USER : " + this.props.responsible.name}
                         />
@@ -41,9 +42,13 @@ export class Task extends React.Component {
                             <Typography variant="body2" color="textSecondary" component="p">
                                 {this.props.descripcion}
                             </Typography>
+                            {this.props.fileUrl.slice(-3) == "pdf" ? <embed src={this.props.fileUrl} width="500" height="500" /> : <img src={this.props.fileUrl} width="300" height="300" />}
                         </CardContent>
+
                     </Card>
                 </center>
+                <br />
+                <br/>
             </div>
           
         );

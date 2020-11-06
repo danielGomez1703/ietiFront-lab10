@@ -210,6 +210,7 @@ class AddTask extends React.Component {
             responsible: this.state.responsible
         };
 
+
      await axios.post('http://localhost:8080/api/todo', {
         status: newItem.status,
         fileUrl: "http://localhost:8080/" + newItem.fileUrl,
